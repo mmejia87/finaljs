@@ -1,6 +1,6 @@
 String.prototype.replaceAt=function(index, character) { return this.substr(0, index) + character+ this.substr(index+character.length); }
 
-const palabras = ['casa', 'perro', 'gato', 'elefante'];
+const palabras = ['leon','oso','elefante','cerdo'];
 
 const palabra = palabras[Math.floor(Math.random()*palabras.length)];
 
@@ -25,9 +25,39 @@ document.querySelector('#calcular').addEventListener('click', () =>
         contadorFallos++;
         document.querySelector('#game').style.backgroundPosition = -(204*contadorFallos) + 'px 0';
         if(contadorFallos == 4){
-            alert("PERDISTE!!")
+            // alert("PERDISTE!! intentalo de nuevo")
+            Swal.fire({
+                title: 'Perdiste!!',
+                text: "Vuelve a intentarlo",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire(
+                    'Buena Suerte!',
+                  )
+                }
+              })
+        }
+    }else{
+        if(palabraConGuiones.indexOf('_')<0){
+            //  document.querySelector('#ganador').style.display = 'flex';
+            Swal.fire(
+                'Ganaste!',
+                'Volver a Jugar??',
+                'success'
+              )
+            
         }
     }
 
     document.querySelector('#output').innerHTML = palabraConGuiones; 
+    document.querySelector('#letra').value = '';
+    document.querySelector('#letra').focus();
+    
 });
+
+
